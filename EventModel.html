@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+     <div id="TestMasterDiv">
+           <button class="button">lol</button>
+             <p class="content">ednoto</p>
+             <button class="some-class button">a</button>
+             <p class="content">drugoto</p>
+
+             <p class="content">tretoto</p>
+             <p class="content">da</p>
+
+             <button class="button">abe</button>
+
+             <button class="amaneebutonwe">abe</button>
+
+
+     </div>
+
+    <script type="text/javascript">
+       function solve(){
+         return function(arg){
+             if (!(typeof arg === 'string') && !(arg instanceof HTMLElement))
+             {
+               throw "Invalid argument!";
+             }
+             if (arg === undefined)
+             {
+               throw "argument is undefined!";
+             }
+             var elementite;
+             if (arg instanceof HTMLElement)
+             {
+               elementite = arg;
+             }
+             else{
+               elementite = document.getElementById(arg);
+             }
+
+             var bashElementite = elementite.getElementsByClassName('button');
+             for (var i = 0;i < bashElementite.length;i+=1)
+             {
+               bashElementite[i].innerText = 'hide';
+             }
+
+             elementite.addEventListener('click',function(e){
+               if (e.target.tagName !== 'div' && e.target.className.indexOf('button') >= 0)
+               {
+                 var currentChild = e.target;
+                 while(currentChild.nextElementSibling instanceof HTMLElement){
+                   var tempNext = currentChild.nextElementSibling;
+
+                   if (tempNext.className.indexOf('content') >= 0)
+                   {
+                     if (tempNext.nextElementSibling instanceof HTMLElement)
+                     {
+                       if (tempNext.nextElementSibling.className.indexOf('button') >= 0)
+                       {
+                           if (currentChild.nextElementSibling.style.visibility === 'visible')
+                           {
+                              currentChild.nextElementSibling.style.visibility = 'hidden';
+                              e.target.innerText = 'show';
+                              break;
+                           }
+                           else
+                           {
+                             currentChild.nextElementSibling.style.visibility = 'visible';
+                             e.target.innerText = 'hide';
+                             break;
+                           }
+                       }
+                     }
+                   }
+                   currentChild = currentChild.nextElementSibling;
+                 }
+               }
+             },false);
+
+         }
+       }
+
+       var funkciqta = solve();
+
+       funkciqta(document.getElementById("TestMasterDiv"));
+
+
+    </script>
+  </body>
+</html>
